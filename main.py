@@ -13,13 +13,15 @@ screen.fill((97, 178, 199))
 icon = pygame.image.load('image/free-icon-abstract-shape-6604311.png') # подгружаем иконку
 pygame.display.set_icon(icon)
 
-bg = pygame.image.load('image/1641565350_33-www-funnyart-club-p-foni-dlya-platformerov-34.png')
+bg = pygame.image.load('image/1641565350_33-www-funnyart-club-p-foni-dlya-platformerov-34.png') # создаем зандий фон
 
+player_speed = 50
+player_x = 200
 
 walk_right = [
     pygame.image.load("image/move/right1.png"),
     pygame.image.load("image/move/right2.png"),
-    pygame.image.load("image/move/right3.png"),
+    pygame.image.load("image/move/right3.png"), # движение игрока вправо
     pygame.image.load("image/move/right4.png"),
     pygame.image.load("image/move/right5.png"),
     pygame.image.load("image/move/right6.png"),
@@ -29,7 +31,7 @@ walk_left = [
     pygame.image.load("image/move/left1.png"),
     pygame.image.load("image/move/left2.png"),
     pygame.image.load("image/move/left3.png"),
-    pygame.image.load("image/move/left4.png"),
+    pygame.image.load("image/move/left4.png"),# движение игрока влево
     pygame.image.load("image/move/left5.png"),
     pygame.image.load("image/move/left6.png"),
 
@@ -40,15 +42,28 @@ wk = 0
 bg_x = 0
 while True:
     clock.tick(10)
-    screen.blit(bg,(bg_x,0))
-    screen.blit(bg,(bg_x+1000,0))
+    screen.blit(bg,(0,0))
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_d]:
+        screen.blit(walk_right[wk],(player_x,100))
+    elif keys[pygame.K_a]:
+        screen.blit(walk_left[wk], (player_x, 100))
+    else:
+        screen.blit(player, (player_x, 100))
 
-    screen.blit(walk_right[wk],(200,100))
+
+    if keys[pygame.K_a] and player_x > 0:
+        player_x -= player_speed
+
+    elif keys[pygame.K_d] and player_x < 800:
+        player_x += player_speed
+
     if wk == 5:
         wk = 0
     else:
         wk += 1
     pygame.display.update()
+
 
     bg_x -= 10
     for event in pygame.event.get():# получаем список всех возможных событий
