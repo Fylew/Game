@@ -128,20 +128,6 @@ while True:
     pygame.display.update()
     screen.blit(bg, (0, 0))
 
-    if not is_jump: # прописывание логики работы прыжка
-        if keys[pygame.K_SPACE]:
-            is_jump = True
-    else:
-        if up_jump >= -7:
-            if up_jump > 0:
-                player_y -= (up_jump ** 2 )/2
-            else:
-                player_y += (up_jump ** 2 )/2
-            up_jump -= 1
-        else:
-            is_jump = False
-            up_jump = 7
-
 
     if keys[pygame.K_a] and player_x > 0: # передвижение персонажа по экрану с ограничением движения
         player_x -= player_speed
@@ -158,7 +144,7 @@ while True:
         wk = 0
     else:
         wk += 1
-    pygame.display.update() # обновление событий на экране
+
 
     for event in pygame.event.get():# получаем список всех возможных событий
         if event.type == pygame.QUIT:# проверяем если тип переменной ивент == выходу из игры
